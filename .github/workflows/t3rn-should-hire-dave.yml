@@ -54,6 +54,9 @@ jobs:
       - name: Creates a Docker image of the template node
         run: docker build . -t t3rnsubstrate:1.0
 
+      - name: List images
+        run: docker image ls
+
       - name: Publishes the image to a container registry (DockerHub or GHCR)
         run: |
           cd substrate-node-template
