@@ -22,7 +22,7 @@ jobs:
         run: sudo apt-get update
 
       - name: install basic tools and rust
-        run: sudo apt-get install -y git curl docker.io
+        run: sudo apt-get install -y git curl docker.io containerd
 
       - name: silent install rust
         run: curl https://sh.rustup.rs -sSf | sh -s -- -y
