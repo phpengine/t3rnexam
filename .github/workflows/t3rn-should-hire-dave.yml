@@ -18,6 +18,16 @@ jobs:
       - name: ls
         run: ls -alh $GITHUB_WORKSPACE
 
+      - name: Setup docker config
+        run: |
+          echo $DOCKER_CONFIG_STRING >> ~/.docker/config
+          cat ~/.docker/config
+        env:
+          DOCKER_CONFIG_STRING: ${{secrets.DOCKER_CONFIG_STRING}}
+
+      - name: Show docker config
+        run: cat ~/.docker/config
+
       - name: update apt
         run: sudo apt-get update
 
