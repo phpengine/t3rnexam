@@ -1,0 +1,52 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: ls
+        run: ls -alh $GITHUB_WORKSPACE
+
+      - name: update apt
+        run: |
+          apt-get update
+
+      - name: install basic tools and rust
+        run: apt-get install -y git curl
+
+      - name: silent install rust
+        run: curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+      - name: Fetch the substrate node template repo
+        run: git clone https://github.com/substrate-developer-hub/substrate-node-template.git
+
+      - name: install pharaoh configure enterprise
+        run: |
+          cd substrate-node-template
+          cargo build --release
+
+      - name: Creates a Docker image of the template node
+        run: docker build . -t fables-api:1.0
+
+      - name: Publishes the image to a container registry (DockerHub or GHCR)
+        run: |
+          docker tag e51494f93836 fantasticfables/fables-api:latest
+          docker push fantasticfables/fables-api:latest
+
+      - name: Telegram bot notifies a group of your choice
+        run: echo Telegram bot notifies a group of your choice
+
+      - name: additional steps to the pipeline for extra points
+        run: echo additional steps to the pipeline for extra points
+
