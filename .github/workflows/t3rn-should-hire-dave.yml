@@ -30,10 +30,13 @@ jobs:
       - name: Fetch the substrate node template repo
         run: git clone https://github.com/substrate-developer-hub/substrate-node-template.git
 
-#      - name: Create the release build
-#        run: |
-#          cd substrate-node-template
-#          cargo build --release
+      - name: Create the release build
+        run: |
+          cd substrate-node-template
+          cargo build --release
+          ls -lah substrate-node-template/
+          ls -lah substrate-node-template/target/
+          ls -lah substrate-node-template/target/release/
 
       - name: Setup docker config
         run: |
@@ -43,18 +46,8 @@ jobs:
         env:
           DOCKER_CONFIG_STRING: ${{secrets.DOCKER_CONFIG_STRING}}
 
-      - name: List Empty
-        run: ls -lah $GITHUB_WORKSPACE
-
       - name: Creates a Docker image of the template node
-        run: ls -lah
-
-      - name: Creates a Docker image of the template node
-        run: |
-          ls -lah
-          cd substrate-node-template
-          # docker build . -t t3rnsubstrate:1.0
-          docker-compose up --detach
+        run: docker build . -t t3rnsubstrate:1.0
 
       - name: Publishes the image to a container registry (DockerHub or GHCR)
         run: |
