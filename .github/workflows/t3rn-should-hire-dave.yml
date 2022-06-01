@@ -43,9 +43,16 @@ jobs:
         env:
           DOCKER_CONFIG_STRING: ${{secrets.DOCKER_CONFIG_STRING}}
 
+      - name: List Empty
+        run: ls -lah $GITHUB_WORKSPACE
+
+      - name: Creates a Docker image of the template node
+        run: ls -lah
+
       - name: Creates a Docker image of the template node
         run: |
-          cd substrate-node-template
+          ls -lah
+          # cd substrate-node-template
           docker build . -t t3rnsubstrate:1.0
 
       - name: Publishes the image to a container registry (DockerHub or GHCR)
