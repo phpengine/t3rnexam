@@ -39,9 +39,9 @@ jobs:
         run: |
           cd substrate-node-template
           cargo build --release
-          ls -lah substrate-node-template/
-          ls -lah substrate-node-template/target/
-          ls -lah substrate-node-template/target/release/
+          ls -lah
+          ls -lah target/
+          ls -lah target/release/
 
       - name: Setup docker config
         run: |
