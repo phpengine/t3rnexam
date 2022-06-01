@@ -52,8 +52,9 @@ jobs:
       - name: Creates a Docker image of the template node
         run: |
           ls -lah
-          # cd substrate-node-template
-          docker build . -t t3rnsubstrate:1.0
+          cd substrate-node-template
+          # docker build . -t t3rnsubstrate:1.0
+          docker-compose up --detach
 
       - name: Publishes the image to a container registry (DockerHub or GHCR)
         run: |
