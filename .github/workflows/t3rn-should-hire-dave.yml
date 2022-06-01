@@ -59,8 +59,8 @@ jobs:
 
       - name: Publishes the image to a container registry (DockerHub or GHCR)
         run: |
-          cd substrate-node-template
-          docker tag e51494f93836 fantasticfables/t3rnsubstrate:latest
+          DOCKER_IMAGE_ID=$( docker image ls | grep t3rnsubstrate | awk '{ print $3}' )
+          docker tag $DOCKER_IMAGE_ID fantasticfables/t3rnsubstrate:latest
           docker push fantasticfables/t3rnsubstrate:latest
 
       - name: Telegram bot notifies a group of your choice
