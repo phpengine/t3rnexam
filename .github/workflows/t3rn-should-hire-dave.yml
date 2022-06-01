@@ -49,14 +49,6 @@ jobs:
           ls -lah target/
           ls -lah target/release/
 
-      - name: Setup docker config
-        run: |
-          echo $DOCKER_CONFIG_STRING >> ~/.docker/config
-          cat ~/.docker/config
-        shell: bash
-        env:
-          DOCKER_CONFIG_STRING: ${{secrets.DOCKER_CONFIG_STRING}}
-
       - name: Creates a Docker image of the template node
         run: docker build . -t t3rnsubstrate:1.0
 
