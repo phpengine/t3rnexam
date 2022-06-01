@@ -18,6 +18,12 @@ jobs:
       - name: ls
         run: ls -alh $GITHUB_WORKSPACE
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Setup docker config
         run: |
           echo $DOCKER_CONFIG_STRING >> ~/.docker/config
