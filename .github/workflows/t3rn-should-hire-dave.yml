@@ -30,6 +30,11 @@ jobs:
       - name: Fetch the substrate node template repo
         run: git clone https://github.com/substrate-developer-hub/substrate-node-template.git
 
+      - name: Substrate Initialise Script
+        run: |
+          cd substrate-node-template/scripts
+          ./init.sh
+
       - name: Create the release build
         run: |
           cd substrate-node-template
