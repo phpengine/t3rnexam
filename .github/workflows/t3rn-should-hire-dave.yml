@@ -62,7 +62,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publishes the image to a container registry (DockerHub or GHCR)
+      - name: Publishes the image to a container registry both DockerHub and GHCR - additional step 1 for extra points
         run: |
           DOCKER_IMAGE_ID=$( docker image ls | grep t3rnsubstrate | awk '{ print $3 }' )
           docker tag $DOCKER_IMAGE_ID fantasticfables/t3rnsubstrate:latest
@@ -79,6 +79,3 @@ jobs:
 #          to: ${{ secrets.TELEGRAM_TO }}
 #          token: ${{ secrets.TELEGRAM_TOKEN }}
 #          message: All the things to hire Dave
-
-#      - name: Publishes the image to a second container registry - additional step 1 for extra points
-#        run: |
