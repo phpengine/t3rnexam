@@ -55,11 +55,20 @@ jobs:
       - name: List images
         run: docker image ls
 
+      - name: Login to GHCR - additional step 1 for extra points
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publishes the image to a container registry (DockerHub or GHCR)
         run: |
           DOCKER_IMAGE_ID=$( docker image ls | grep t3rnsubstrate | awk '{ print $3 }' )
           docker tag $DOCKER_IMAGE_ID fantasticfables/t3rnsubstrate:latest
           docker push fantasticfables/t3rnsubstrate:latest
+          docker tag $DOCKER_IMAGE_ID ghcr.io/phpengine/t3rnsubstrate:latest
+          docker push ghcr.io/phpengine/t3rnsubstrate:latest
 
 #      This is commented out as I haven't created a telegram group before, I dont have telegram
 #      I've done the same for slack though, and included what would be the correct code
@@ -71,15 +80,5 @@ jobs:
 #          token: ${{ secrets.TELEGRAM_TOKEN }}
 #          message: All the things to hire Dave
 
-      - name: Login to GHCR - additional step 1 for extra points
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publishes the image to a second container registry - additional step 1 for extra points
-        run: |
-          DOCKER_IMAGE_ID=$( docker image ls | grep t3rnsubstrate | awk '{ print $3 }' )
-          docker tag $DOCKER_IMAGE_ID ghcr.io/phpengine/t3rnsubstrate:latest
-          docker push ghcr.io/phpengine/t3rnsubstrate:latest
+#      - name: Publishes the image to a second container registry - additional step 1 for extra points
+#        run: |
